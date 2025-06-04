@@ -4,39 +4,65 @@
   <meta charset="UTF-8">
   <style>
     body {
-  text-align: center;
-  background-image: url('bg1.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  font-family: sans-serif;
-  padding: 30px;
-  min-height: 100vh;
-}
+      text-align: center;
+      background-image: url('bg1.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: sans-serif;
+      padding: 30px;
+      min-height: 100vh;
+    }
+
     .section {
       display: none;
     }
+
     .active {
       display: block;
     }
+
     img.button {
       cursor: pointer;
       width: 300px;
       margin-top: 0.2px;
     }
+
     img.content {
-  width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto 20px;
-}
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto 20px;
+    }
 
     audio {
       display: none;
     }
+
+    #backBtn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border: none;
+      padding: 10px 15px;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 9999;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Tombol Back -->
+  <button onclick="goBack()" id="backBtn" style="display: none;">←</button>
 
   <!-- Musik dari GitHub -->
   <audio id="birthdayMusic" src="hbd-svt.mp3" preload="auto" autoplay loop></audio>
@@ -91,6 +117,14 @@
     function goToPage(pageId) {
       document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
       document.getElementById(pageId).classList.add('active');
+
+      const backButton = document.getElementById('backBtn');
+      const pagesWithBack = ['letterPage', 'sandwichPage'];
+      backButton.style.display = pagesWithBack.includes(pageId) ? 'flex' : 'none';
+    }
+
+    function goBack() {
+      goToPage('yesPage');
     }
 
     // Autoplay trigger
