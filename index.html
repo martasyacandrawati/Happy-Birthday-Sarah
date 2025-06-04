@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday Surprise</title>
+  <style>
+    body {
+  text-align: center;
+  background-image: url('BG 1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: sans-serif;
+  padding: 30px;
+  min-height: 100vh;
+}
+    .section {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+    img.button {
+      cursor: pointer;
+      width: 150px;
+      margin-top: 20px;
+    }
+    img.content {
+      max-width: 90%;
+    }
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Musik dari GitHub -->
+  <audio id="birthdayMusic" src="HBD SVT.mp3" preload="auto" autoplay loop></audio>
+
+  <!-- Halaman 1 -->
+  <div id="page1" class="section active">
+    <img class="content" src="HBD FIX.png" alt="Happy Birthday">
+    <br>
+    <img class="button" src="HERE FIX.png" alt="Click" onclick="goToPage('page2')">
+  </div>
+
+  <!-- Halaman 2 -->
+  <div id="page2" class="section">
+    <img class="content" src="LETTER C FIX.png" alt="Pilih">
+    <br>
+    <img class="button" src="YES FIX.png" alt="Yes" onclick="goToPage('noPage')">
+    <img class="button" src="NO FIX.png" alt="No" onclick="goToPage('yesPage')">
+  </div>
+
+  <!-- Halaman No -->
+  <div id="noPage" class="section">
+    <img class="content" src="PLEASE FIX.png" alt="Try Again">
+    <br>
+    <img class="button" src="OK FIX.png" alt="OK" onclick="goToPage('page1')">
+  </div>
+
+  <!-- Halaman Yes -->
+  <div id="yesPage" class="section">
+    <img class="content" src="CHOOSE ONE FIX.png" alt="This is for u">
+    <br>
+    <img class="button" src="LETTER O FIX.png" alt="Letter" onclick="goToPage('letterPage')">
+    <br>
+    <img class="content" src="OR FIX.png" alt="or">
+    <br>
+    <img class="button" src="SANDWICH FIX.png" alt="Sandwich" onclick="goToPage('sandwichPage')">
+  </div>
+
+  <!-- Halaman Letter -->
+  <div id="letterPage" class="section">
+    <img class="content" src="https://raw.githubusercontent.com/username/repo/main/letter-image.png" alt="Letter">
+  </div>
+
+  <!-- Halaman Sandwich -->
+  <div id="sandwichPage" class="section">
+    <img class="content" src="https://raw.githubusercontent.com/username/repo/main/sandwich-image.png" alt="Sandwich">
+  </div>
+
+  <script>
+    function goToPage(pageId) {
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+    }
+
+    // Autoplay trigger
+    window.addEventListener('click', function playMusicOnce() {
+      document.getElementById('birthdayMusic').play();
+      window.removeEventListener('click', playMusicOnce);
+    });
+  </script>
+</body>
+</html>
