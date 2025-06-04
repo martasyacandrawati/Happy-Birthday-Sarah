@@ -4,45 +4,76 @@
   <meta charset="UTF-8">
   <style>
     body {
-  text-align: center;
-  background-image: url('bg1.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  font-family: sans-serif;
-  padding: 30px;
-  min-height: 100vh;
-}
+      text-align: center;
+      background-image: url('bg1.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: sans-serif;
+      padding: 30px;
+      min-height: 100vh;
+    }
+
     .section {
       display: none;
     }
+
     .active {
       display: block;
     }
+
     img.button {
       cursor: pointer;
       width: 300px;
       margin-top: 0.2px;
     }
-    img.content {
-  max-width: 100%;
-  width: 400px;
-  margin-bottom: 10px;
-}
 
-@media screen and (max-width: 480px) {
-  img.content {
-    width: 85vw;
-  }
-}
+    img.content {
+      max-width: 100%;
+      width: 1000px;
+      margin-bottom: 0px;
+    }
+
+    @media screen and (max-width: 480px) {
+      img.content {
+        width: 85vw;
+      }
+    }
+
     audio {
       display: none;
+    }
+
+    .slider {
+      white-space: nowrap;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .slider img {
+      display: none;
+      vertical-align: top;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .slider img.active-slide {
+      display: inline-block;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      border: none;
+      background-color: #ffffffcc;
     }
   </style>
 </head>
 <body>
 
-  <!-- Musik dari GitHub -->
   <audio id="birthdayMusic" src="hbd-svt.mp3" preload="auto" autoplay loop></audio>
 
   <!-- Halaman 1 -->
@@ -56,8 +87,8 @@
   <div id="page2" class="section">
     <img class="content" src="letter-c-fix.png" alt="Pilih">
     <br>
-    <img class="button" src="yes-fix.png" alt="Yes" onclick="goToPage('noPage')">
-    <img class="button" src="no-fix.png" alt="No" onclick="goToPage('yesPage')">
+    <img class="button" src="yes-fix.png" alt="Yes" onclick="goToPage('yesPage')">
+    <img class="button" src="no-fix.png" alt="No" onclick="goToPage('noPage')">
   </div>
 
   <!-- Halaman No -->
@@ -79,36 +110,86 @@
   </div>
 
   <!-- Halaman Letter -->
-<div id="letterPage" class="section">
-  <div class="slider">
-    <img class="content" src="n1.jpg" alt="Letter">
-    <img class="content" src="n2.jpg" alt="Letter">
-    <img class="content" src="n3.jpg" alt="Letter">
+  <div id="letterPage" class="section">
+    <div class="slider" id="letterSlider">
+      <img class="content" src="n1.jpg" alt="Letter">
+      <img class="content" src="n2.jpg" alt="Letter">
+      <img class="content" src="n3.jpg" alt="Letter">
+    </div>
+    <br>
+    <button onclick="prevSlide('letterSlider')">⬅</button>
+    <button onclick="nextSlide('letterSlider')">➡</button>
+    <br>
+    <button onclick="goBack()">⬅ Back</button>
   </div>
-  <br>
-  <button onclick="prevSlide('letterPage')">⬅</button>
-  <button onclick="nextSlide('letterPage')">➡</button>
-  <br>
-  <img class="button" src="back-fix.png" alt="Back" onclick="goBack()">
-</div>
 
- <!-- Halaman Sandwich -->
-<div id="sandwichPage" class="section">
-  <div class="slider">
-    <img class="content" src="s1.jpg" alt="Sandwich">
-    <img class="content" src="s2.jpg" alt="Sandwich">
+  <!-- Halaman Sandwich -->
+  <div id="sandwichPage" class="section">
+    <div class="slider" id="sandwichSlider">
+      <img class="content" src="s1.jpg" alt="Sandwich">
+      <img class="content" src="s2.jpg" alt="Sandwich">
+    </div>
+    <br>
+    <button onclick="prevSlide('sandwichSlider')">⬅</button>
+    <button onclick="nextSlide('sandwichSlider')">➡</button>
+    <br>
+    <button onclick="goBack()">⬅ Back</button>
   </div>
-  <br>
-  <button onclick="prevSlide('sandwichPage')">⬅</button>
-  <button onclick="nextSlide('sandwichPage')">➡</button>
-  <br>
-  <img class="button" src="back-fix.png" alt="Back" onclick="goBack()">
-</div>
 
   <script>
+    const historyStack = {};
+    let currentPage = 'page1';
+    const slideIndices = {};
+
     function goToPage(pageId) {
-      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(currentPage).classList.remove('active');
+      historyStack[pageId] = currentPage;
       document.getElementById(pageId).classList.add('active');
+      currentPage = pageId;
+
+      // Initialize first slide if slider exists
+      if (pageId.includes('Slider')) showSlide(pageId, 0);
+      if (document.querySelector(#${pageId} .slider)) {
+        showSlide(pageId + 'Slider', 0);
+      }
+    }
+
+    function goBack() {
+      document.getElementById(currentPage).classList.remove('active');
+      const prevPage = historyStack[currentPage] || 'page1';
+      document.getElementById(prevPage).classList.add('active');
+      currentPage = prevPage;
+    }
+
+    function showSlide(sliderId, index) {
+      const container = document.getElementById(sliderId);
+      const slides = container.querySelectorAll('img');
+      if (!slides.length) return;
+
+      slideIndices[sliderId] = index;
+      slides.forEach((img, i) => {
+        img.classList.toggle('active-slide', i === index);
+      });
+    }
+
+    function nextSlide(sliderId) {
+      const container = document.getElementById(sliderId);
+      const slides = container.querySelectorAll('img');
+      if (!slides.length) return;
+
+      let i = slideIndices[sliderId] || 0;
+      i = (i + 1) % slides.length;
+      showSlide(sliderId, i);
+    }
+
+    function prevSlide(sliderId) {
+      const container = document.getElementById(sliderId);
+      const slides = container.querySelectorAll('img');
+      if (!slides.length) return;
+
+      let i = slideIndices[sliderId] || 0;
+      i = (i - 1 + slides.length) % slides.length;
+      showSlide(sliderId, i);
     }
 
     // Autoplay trigger
