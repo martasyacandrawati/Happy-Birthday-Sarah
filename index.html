@@ -4,76 +4,45 @@
   <meta charset="UTF-8">
   <style>
     body {
-      text-align: center;
-      background-image: url('bg1.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      font-family: sans-serif;
-      padding: 30px;
-      min-height: 100vh;
-    }
-
+  text-align: center;
+  background-image: url('bg1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: sans-serif;
+  padding: 30px;
+  min-height: 100vh;
+}
     .section {
       display: none;
     }
-
     .active {
       display: block;
     }
-
     img.button {
       cursor: pointer;
       width: 300px;
       margin-top: 0.2px;
     }
-
     img.content {
-      max-width: 100%;
-      width: 1000px;
-      margin-bottom: 0px;
-    }
+  max-width: 100%;
+  width: 400px;
+  margin-bottom: 10px;
+}
 
-    @media screen and (max-width: 480px) {
-      img.content {
-        width: 85vw;
-      }
-    }
-
+@media screen and (max-width: 480px) {
+  img.content {
+    width: 85vw;
+  }
+}
     audio {
       display: none;
-    }
-
-    .slider {
-      white-space: nowrap;
-      overflow: hidden;
-      width: 100%;
-    }
-
-    .slider img {
-      display: none;
-      vertical-align: top;
-      width: 100%;
-      max-width: 400px;
-    }
-
-    .slider img.active-slide {
-      display: inline-block;
-    }
-
-    button {
-      padding: 10px 20px;
-      margin: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 8px;
-      border: none;
-      background-color: #ffffffcc;
     }
   </style>
 </head>
 <body>
 
+  <!-- Musik dari GitHub -->
   <audio id="birthdayMusic" src="hbd-svt.mp3" preload="auto" autoplay loop></audio>
 
   <!-- Halaman 1 -->
@@ -136,7 +105,7 @@
     <button onclick="goBack()">⬅ Back</button>
   </div>
 
-  <script>
+    <script>
     const historyStack = {};
     let currentPage = 'page1';
     const slideIndices = {};
@@ -161,7 +130,7 @@
       currentPage = prevPage;
     }
 
-    function showSlide(sliderId, index) {
+      function showSlide(sliderId, index) {
       const container = document.getElementById(sliderId);
       const slides = container.querySelectorAll('img');
       if (!slides.length) return;
